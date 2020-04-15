@@ -1,0 +1,77 @@
+// -----------------------------------------------------------------------------
+// This file contains all about typography&fonts.
+// -----------------------------------------------------------------------------
+
+@font-face {
+    font-family:'Noto Sans';
+    src: url('Noto Sans.eot');
+	src: local('../../fonts/NotoSans'), local(Noto Sans),
+		url('../../fonts/Noto Sans.eot?#iefix') format('embedded-opentype'),
+		url('../../fonts/Noto Sans.woff2') format('woff2'),
+		url('../../fonts/Noto Sans.woff') format('woff'),
+		url('../../fonts/Noto Sans.svg#Noto Sans') format('svg');
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+}
+
+@font-face {
+    font-family:'Noto Sans';
+    src: url('Noto Sans Bold.eot');
+	src: local('../../fonts/NotoSans-Bold'), local(Noto Sans Bold),
+		url('../../fonts/Noto Sans Bold.eot?#iefix') format('embedded-opentype'),
+		url('../../fonts/Noto Sans Bold.woff2') format('woff2'),
+		url('../../fonts/Noto Sans Bold.woff') format('woff'),
+		url('../../fonts/Noto Sans Bold.svg#Noto Sans Bold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-2074;
+}
+
+@font-face {
+    font-family:'Philosopher';
+    src: url('Philosopher Bold.eot');
+	src: local('../../fonts/Philosopher-Bold'), local(Philosopher Bold),
+		url('../../fonts/Philosopher Bold.eot?#iefix') format('embedded-opentype'),
+		url('../../fonts/Philosopher Bold.woff2') format('woff2'),
+		url('../../fonts/Philosopher Bold.woff') format('woff'),
+		url('../../fonts/Philosopher Bold.svg#Philosopher Bold') format('svg');
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-04B1;
+}
+
+@font-face {
+    font-family:'Philosopher';
+    src: url('../../fonts/Philosopher Regular.eot');
+	src: local('../../fonts/Philosopher-Regular'), local(Philosopher Regular),
+		url('../../fonts/Philosopher Regular.eot?#iefix') format('embedded-opentype'),
+		url('../../fonts/Philosopher Regular.woff2') format('woff2'),
+		url('../../fonts/Philosopher Regular.woff') format('woff'),
+		url('../../fonts/Philosopher Regular.svg#Philosopher Regular') format('svg');
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    unicode-range: U+0020-04B1;
+}
+
+@mixin font-heading($font-size, $line-height, $color) {
+    font-family: Philosopher, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: $font-size;
+    line-height: $line-height;
+    color: $color;
+}
+
+@mixin font-content($font-size, $line-height, $color) {
+    font-family: Noto Sans, sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: $font-size;
+    line-height: $line-height;
+    color: $color;
+}
