@@ -20,11 +20,14 @@
 
 .news-block {
   display: block;
-  text-decoration: none;
-  outline: none;
   transition: transform ease-in-out $transition-time;
   margin-right: $item-margin-right;
   margin-top: $item-margin-top;
+
+  a {
+    text-decoration: none;
+    outline: none;
+  }
 
   // 4 column
   @include mq($from: desktop) {
