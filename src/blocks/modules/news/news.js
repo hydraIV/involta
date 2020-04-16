@@ -3,60 +3,144 @@ import slickInit from "./slick-init.js";
 const API = 'https://ivvending.ru'; // API address
 
 class NewsSection {
-    constructor(container='.news-section') {
-        this.container = container;
-        this.data = [];
-        this.news = [];
-        this._fetchNews() // Get data
-            .then(() => this._render()) // then render
-            .then(() => slickInit()); // then mount slider
-    }
-    // Imitation of geting news from server
-    _fetchNews() {
-        return fetch(`${API}/news.json`)
-            .then(result => result.json())
-            .then(data => {
-                this.data = [...data];
-            })
-            .catch(error => {
-                console.error(error);
-                console.log('For presentation. We did not receive data from the server and take it from a simple array.');
-                this.data = [
-                    {id: 1, img: './img/news_pic.jpg', category: 'Конституционное право', title: 'Упущены значимые правовые категории', content: 'Одним из новых заместителей Александра Коновалова стал Денис Новак, до последнего времени занимавший должность заместителя директора Департамента экономического законодательства Минюста.', newsDate: '26 августа'},
-                    {id: 2, img: './img/news_pic_1.jpg', category: 'Закон и порядок', title: 'Упущены значимые правовые категории', content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей', newsDate: '26 августа'},
-                    {id: 3, img: './img/news_pic_2.jpg', category: 'Этика общения адвокатов', title: 'Диалог адвокатуры и следствия', content: 'Главное управление МВД столицы обратилось в АП г. Москвы с просьбой организовать явку представителей палаты для проведения обыска в жилище адвоката.', newsDate: '26 августа'},
-                    {id: 4, img: './img/news_pic_3.jpg', category: 'Закон и порядок', title: 'Упущены значимые правовые категории', content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей', newsDate: '26 августа'},
-                    {id: 1, img: './img/news_pic-4.jpg', category: 'Конституционное право', title: 'Упущены значимые правовые категории', content: 'Одним из новых заместителей Александра Коновалова стал Денис Новак, до последнего времени занимавший должность заместителя директора Департамента экономического законодательства Минюста.', newsDate: '26 августа'},
-                    {id: 2, img: './img/news_pic_1.jpg', category: 'Закон и порядок', title: 'Упущены значимые правовые категории', content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей', newsDate: '26 августа'},
-                    {id: 3, img: './img/news_pic_2.jpg', category: 'Этика общения адвокатов', title: 'Диалог адвокатуры и следствия', content: 'Главное управление МВД столицы обратилось в АП г. Москвы с просьбой организовать явку представителей палаты для проведения обыска в жилище адвоката.', newsDate: '26 августа'},
-                    {id: 4, img: './img/news_pic_3.jpg', category: 'Закон и порядок', title: 'Упущены значимые правовые категории', content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей', newsDate: '26 августа'},
-                    {id: 1, img: './img/news_pic.jpg', category: 'Конституционное право', title: 'Упущены значимые правовые категории', content: 'Одним из новых заместителей Александра Коновалова стал Денис Новак, до последнего времени занимавший должность заместителя директора Департамента экономического законодательства Минюста.', newsDate: '26 августа'},
-                    {id: 2, img: './img/news_pic_1.jpg', category: 'Закон и порядок', title: 'Упущены значимые правовые категории', content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей', newsDate: '26 августа'},
-                    {id: 3, img: './img/news_pic_2.jpg', category: 'Этика общения адвокатов', title: 'Диалог адвокатуры и следствия', content: 'Главное управление МВД столицы обратилось в АП г. Москвы с просьбой организовать явку представителей палаты для проведения обыска в жилище адвоката.', newsDate: '26 августа'},
-                    {id: 4, img: './img/news_pic_3.jpg', category: 'Закон и порядок', title: 'Упущены значимые правовые категории', content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей', newsDate: '26 августа'},
-                ]});
-    }
-    // Rendering whole news component/section
-    _render() {
-        const block = document.querySelector(this.container);
-        this.data.forEach(el => {
-            const newsItem = new NewsBlock(el);
-            this.news.push(newsItem);
-            block.insertAdjacentHTML('beforeend', newsItem.render());
-        });
-    }
+  constructor(container = '.news-section') {
+    this.container = container;
+    this.data = [];
+    this.news = [];
+    this._fetchNews() // Get data
+      .then(() => this._render()) // then render
+      .then(() => slickInit()); // then mount slider
+  }
+  // Imitation of geting news from server
+  _fetchNews() {
+    return fetch(`${API}/news.json`)
+      .then(result => result.json())
+      .then(data => {
+        this.data = [...data];
+      })
+      .catch(error => {
+        console.error(error);
+        console.log('For presentation. We did not receive data from the server and take it from a simple array.');
+        this.data = [{
+            id: 1,
+            img: './img/news_pic.jpg',
+            category: 'Конституционное право',
+            title: 'Упущены значимые правовые категории',
+            content: 'Одним из новых заместителей Александра Коновалова стал Денис Новак, до последнего времени занимавший должность заместителя директора Департамента экономического законодательства Минюста.',
+            newsDate: '26 августа'
+          },
+          {
+            id: 2,
+            img: './img/news_pic_1.jpg',
+            category: 'Закон и порядок',
+            title: 'Упущены значимые правовые категории',
+            content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей',
+            newsDate: '26 августа'
+          },
+          {
+            id: 3,
+            img: './img/news_pic_2.jpg',
+            category: 'Этика общения адвокатов',
+            title: 'Диалог адвокатуры и следствия',
+            content: 'Главное управление МВД столицы обратилось в АП г. Москвы с просьбой организовать явку представителей палаты для проведения обыска в жилище адвоката.',
+            newsDate: '26 августа'
+          },
+          {
+            id: 4,
+            img: './img/news_pic_3.jpg',
+            category: 'Закон и порядок',
+            title: 'Упущены значимые правовые категории',
+            content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей',
+            newsDate: '26 августа'
+          },
+          {
+            id: 1,
+            img: './img/news_pic-4.jpg',
+            category: 'Конституционное право',
+            title: 'Упущены значимые правовые категории',
+            content: 'Одним из новых заместителей Александра Коновалова стал Денис Новак, до последнего времени занимавший должность заместителя директора Департамента экономического законодательства Минюста.',
+            newsDate: '26 августа'
+          },
+          {
+            id: 2,
+            img: './img/news_pic_1.jpg',
+            category: 'Закон и порядок',
+            title: 'Упущены значимые правовые категории',
+            content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей',
+            newsDate: '26 августа'
+          },
+          {
+            id: 3,
+            img: './img/news_pic_2.jpg',
+            category: 'Этика общения адвокатов',
+            title: 'Диалог адвокатуры и следствия',
+            content: 'Главное управление МВД столицы обратилось в АП г. Москвы с просьбой организовать явку представителей палаты для проведения обыска в жилище адвоката.',
+            newsDate: '26 августа'
+          },
+          {
+            id: 4,
+            img: './img/news_pic_3.jpg',
+            category: 'Закон и порядок',
+            title: 'Упущены значимые правовые категории',
+            content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей',
+            newsDate: '26 августа'
+          },
+          {
+            id: 1,
+            img: './img/news_pic.jpg',
+            category: 'Конституционное право',
+            title: 'Упущены значимые правовые категории',
+            content: 'Одним из новых заместителей Александра Коновалова стал Денис Новак, до последнего времени занимавший должность заместителя директора Департамента экономического законодательства Минюста.',
+            newsDate: '26 августа'
+          },
+          {
+            id: 2,
+            img: './img/news_pic_1.jpg',
+            category: 'Закон и порядок',
+            title: 'Упущены значимые правовые категории',
+            content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей',
+            newsDate: '26 августа'
+          },
+          {
+            id: 3,
+            img: './img/news_pic_2.jpg',
+            category: 'Этика общения адвокатов',
+            title: 'Диалог адвокатуры и следствия',
+            content: 'Главное управление МВД столицы обратилось в АП г. Москвы с просьбой организовать явку представителей палаты для проведения обыска в жилище адвоката.',
+            newsDate: '26 августа'
+          },
+          {
+            id: 4,
+            img: './img/news_pic_3.jpg',
+            category: 'Закон и порядок',
+            title: 'Упущены значимые правовые категории',
+            content: 'Федеральная палата адвокатов оперативно подготовила предложения по изменению УПК РФ во исполнение требований Президента изменить порядок заключения и содержания под стражей предпринимателей',
+            newsDate: '26 августа'
+          },
+        ]
+      });
+  }
+  // Rendering whole news component/section
+  _render() {
+    const block = document.querySelector(this.container);
+    this.data.forEach(el => {
+      const newsItem = new NewsBlock(el);
+      this.news.push(newsItem);
+      block.insertAdjacentHTML('beforeend', newsItem.render());
+    });
+  }
 }
 class NewsBlock {
-    constructor(item) {
-        this.img = item.img;
-        this.category = item.category;
-        this.title = item.title;
-        this.content = item.content;
-        this.newsDate = item.newsDate;
-    }
-    // Rendering single news block
-    render() {
-        return `
+  constructor(item) {
+    this.img = item.img;
+    this.category = item.category;
+    this.title = item.title;
+    this.content = item.content;
+    this.newsDate = item.newsDate;
+  }
+  // Rendering single news block
+  render() {
+    return `
         <a href="#" class="news-block">
             <div class="news-block__img-wrap">
             <img src="${this.img}" alt="${this.title}">
@@ -72,7 +156,7 @@ class NewsBlock {
             <div class="news-block__date">${this.newsDate}</div>
         </a>
         `
-    }
+  }
 }
 // Creating NewsSection class instance. It is rendered immediately after receiving data from the server. 
-const news =  new NewsSection('.news-section');
+const news = new NewsSection('.news-section');
